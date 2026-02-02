@@ -1,3 +1,26 @@
+/*
+  Globala CSS-variabler för färger, typsnitt och layout
+*/
+/* Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bagel+Fat+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Song+Myung&display=swap");
+
+/* Använd Song Myung för all text utom h1 */
+h2,
+p,
+li,
+label,
+input,
+select,
+button,
+span,
+a,
+th,
+td {
+  font-family: "Song Myung", serif;
+}
+
 :root {
   --font-header: clamp(1.5rem, 5vw, 2.2rem);
   --app-width: clamp(300px, 95%, 500px);
@@ -7,7 +30,7 @@
   --text-muted: #546e7a;
 }
 
-/* Screen reader only text */
+/* Screen reader only text - Endast för skärmläsare, döljs visuellt */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -22,7 +45,6 @@
 
 body {
   background: linear-gradient(135deg, #f0f4f8 0%, #e0e7ff 100%);
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -32,8 +54,14 @@ body {
   min-height: 100vh;
   transition: background 0.5s;
 }
+/* Klass för att använda Song Myung på andra element */
+.song-myung-regular {
+  font-family: "Song Myung", serif;
+  font-weight: 400;
+  font-style: normal;
+}
 
-/* Fun header with emoji and playful font */
+/* Header */
 header {
   width: 100%;
   text-align: center;
@@ -43,11 +71,14 @@ h1 {
   font-size: var(--font-header);
   text-align: center;
   margin-bottom: 1.5rem;
-  font-family: "Fredoka", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Bagel Fat One", system-ui;
+  font-weight: 400;
+  font-style: normal;
   letter-spacing: 1px;
   color: #2a7ae2;
   position: relative;
 }
+
 h1::before {
   font-size: 1.5em;
   vertical-align: middle;
@@ -59,6 +90,7 @@ main {
   max-width: var(--app-width);
 }
 
+/* Kort-liknande bakgrund för appens innehåll */
 #app {
   background: #fff;
   width: 100%;
@@ -174,6 +206,7 @@ li {
     background 0.2s,
     transform 0.15s;
 }
+
 li:hover {
   background: #e0e7ff44;
   transform: scale(1.01);
@@ -189,6 +222,7 @@ li:hover {
     background 0.2s,
     transform 0.15s;
 }
+
 .delete-btn:hover,
 .delete-btn:focus {
   background: linear-gradient(90deg, #ffb347 60%, #ff4d4d 100%);
@@ -227,6 +261,3 @@ li:hover {
     min-height: 48px;
   }
 }
-
-/* Fun Google Font for header (Fredoka) */
-@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@600&display=swap");
