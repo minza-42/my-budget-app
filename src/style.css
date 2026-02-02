@@ -1,21 +1,232 @@
-body {
-  background: #f0f4f8;
-  color: #222;
-  font-family: Arial, sans-serif;
-  margin: 0;
+:root {
+  --font-header: clamp(1.5rem, 5vw, 2.2rem);
+  --app-width: clamp(300px, 95%, 500px);
+  --app-padding: clamp(1rem, 3vw, 2rem);
+  --form-gap: clamp(0.5rem, 2vw, 0.75rem);
+  --text-main: #2c3e50; /* Mjuk blåsvart för text */
+  --text-muted: #546e7a;
+}
+
+/* Screen reader only text */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
   padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
-h1 {
-  color: #2a7ae2;
+
+body {
+  background: linear-gradient(135deg, #f0f4f8 0%, #e0e7ff 100%);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(1rem, 5vw, 3rem);
+  margin: 0;
+  color: var(--text-main);
+  min-height: 100vh;
+  transition: background 0.5s;
+}
+
+/* Fun header with emoji and playful font */
+header {
+  width: 100%;
   text-align: center;
-  margin-top: 2rem;
 }
+
+h1 {
+  font-size: var(--font-header);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-family: "Fredoka", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  letter-spacing: 1px;
+  color: #2a7ae2;
+  position: relative;
+}
+h1::before {
+  font-size: 1.5em;
+  vertical-align: middle;
+  margin-right: 0.2em;
+}
+
+main {
+  width: 100%;
+  max-width: var(--app-width);
+}
+
 #app {
   background: #fff;
-  max-width: 500px;
-  margin: 2rem auto;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  width: 100%;
+  padding: var(--app-padding);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
 }
+
+.balance-container {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #f0f4f8;
+}
+
+#total-balance {
+  font-size: clamp(1.2rem, 4vw, 1.8rem);
+}
+
+.positive {
+  color: #176c2a;
+  font-weight: bold;
+}
+.positive::before {
+  content: "✔ ";
+}
+
+.negative {
+  color: #b00020;
+  font-weight: bold;
+}
+.negative::before {
+  content: "✖ ";
+}
+
+.savings-text {
+  color: #2a7ae2;
+  font-weight: bold;
+}
+.savings-text::before {
+  content: "➔ ";
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--form-gap);
+  margin-bottom: 2rem;
+}
+
+input,
+select,
+button {
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+input:focus,
+select:focus {
+  border-color: #005fcc;
+  box-shadow: 0 0 0 3px rgba(0, 95, 204, 0.3);
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+button {
+  background: linear-gradient(90deg, #2a7ae2 60%, #7f53ac 100%);
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(42, 122, 226, 0.08);
+  transition:
+    transform 0.15s,
+    box-shadow 0.2s;
+}
+
+button:hover,
+button:focus {
+  transform: scale(1.06);
+  box-shadow: 0 4px 16px rgba(127, 83, 172, 0.15);
+}
+
+button:focus {
+  outline: 3px solid #ffb347;
+  outline-offset: 2px;
+}
+
+button:focus:not(:focus-visible) {
+  outline: none;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+  border-radius: 8px;
+  transition:
+    background 0.2s,
+    transform 0.15s;
+}
+li:hover {
+  background: #e0e7ff44;
+  transform: scale(1.01);
+}
+
+.delete-btn {
+  background: linear-gradient(90deg, #ff4d4d 60%, #ffb347 100%);
+  color: white;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  transition:
+    background 0.2s,
+    transform 0.15s;
+}
+.delete-btn:hover,
+.delete-btn:focus {
+  background: linear-gradient(90deg, #ffb347 60%, #ff4d4d 100%);
+  transform: scale(1.08) rotate(1deg);
+}
+
+.delete-btn:focus {
+  outline: 3px solid #2a7ae2;
+  outline-offset: 2px;
+}
+
+.delete-btn:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Färger för transaktionstyper */
+.income {
+  color: #176c2a;
+  font-weight: bold;
+}
+
+.expense {
+  color: #b00020;
+  font-weight: bold;
+}
+
+.savings {
+  color: #2a7ae2;
+  font-weight: bold;
+}
+
+@media (pointer: coarse) {
+  input,
+  select,
+  button {
+    min-height: 48px;
+  }
+}
+
+/* Fun Google Font for header (Fredoka) */
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@600&display=swap");

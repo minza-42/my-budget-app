@@ -4,13 +4,52 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Min Budget App</title>
+  <meta name="description" content="Enkel budgetapp för att hantera inkomster, utgifter och sparande" />
+  <title>Min Budget App - Hantera din ekonomi</title>
   <link rel="stylesheet" href="src/style.css" />
 </head>
 
 <body>
-  <h1>Välkommen till din budget-app!</h1>
-  <div id="app"></div>
+  <header>
+    <h1>Min Budget App</h1>
+  </header>
+
+  <main id="app">
+    <section class="balance-container" aria-labelledby="balance-heading">
+      <h2 id="balance-heading">Balans: <span id="total-balance" aria-live="polite">0</span> kr</h2>
+    </section>
+
+    <section aria-labelledby="form-heading">
+      <h2 id="form-heading" class="sr-only">Lägg till transaktion</h2>
+      <form id="budget-form" aria-label="Formulär för att lägga till transaktioner">
+        <label for="description" class="sr-only">Beskrivning</label>
+        <input type="text" id="description" placeholder="Beskrivning (t.ex. Hyra)" required aria-required="true" />
+
+        <label for="amount" class="sr-only">Belopp</label>
+        <input type="number" id="amount" placeholder="Belopp" required aria-required="true" min="0" step="0.01" />
+
+        <label for="type" class="sr-only">Transaktionstyp</label>
+        <select id="type" aria-label="Välj transaktionstyp">
+          <option value="income">Inkomst</option>
+          <option value="expense">Utgift</option>
+          <option value="savings">Sparande (överföring)</option>
+        </select>
+
+        <label for="category-select" class="sr-only">Kategori</label>
+        <select id="category-select" aria-label="Välj kategori" required aria-required="true">
+          <option value="" disabled selected>Välj kategori...</option>
+        </select>
+
+        <button type="submit">Lägg till post</button>
+      </form>
+    </section>
+
+    <section aria-labelledby="transactions-heading">
+      <h2 id="transactions-heading" class="sr-only">Transaktioner</h2>
+      <ul id="transaction-list" aria-label="Lista över transaktioner"></ul>
+    </section>
+  </main>
+
   <script type="module" src="src/main.ts"></script>
 </body>
 
