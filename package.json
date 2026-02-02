@@ -1,15 +1,16 @@
 {
-  "name": "fed25d-js-inl-2-budget-app-minza-42",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
-  },
-  "devDependencies": {
-    "typescript": "~5.9.3",
-    "vite": "^7.2.4"
-  }
+	"name": "fed25d-js-inl-2-budget-app-minza-42",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc && vite build",
+		"preview": "vite preview"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.3.13",
+		"typescript": "~5.9.3",
+		"vite": "^7.2.4"
+	}
 }
