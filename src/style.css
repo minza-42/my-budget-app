@@ -1,3 +1,8 @@
+/* Centrerad knapp för export */
+.center-btn {
+  display: block;
+  margin: 2rem auto 0 auto;
+}
 /*
   Globala CSS-variabler för färger, typsnitt och layout
 */

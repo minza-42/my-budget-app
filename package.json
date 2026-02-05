@@ -12,5 +12,8 @@
 		"@biomejs/biome": "2.3.13",
 		"typescript": "~5.9.3",
 		"vite": "^7.2.4"
+	},
+	"dependencies": {
+		"jspdf": "^4.1.0"
 	}
 }

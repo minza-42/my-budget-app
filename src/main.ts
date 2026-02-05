@@ -1,4 +1,5 @@
 import './style.css';
+import jsPDF from 'jspdf';
 // Interface för en transaktion
 interface Transaction {
   id: number;
@@ -19,6 +20,72 @@ const typeSelect = document.getElementById('type') as HTMLSelectElement;
 const categorySelect = document.getElementById('category-select') as HTMLSelectElement;
 const list = document.getElementById('transaction-list') as HTMLUListElement;
 const balanceDisplay = document.getElementById('total-balance') as HTMLElement;
+const exportPdfBtn = document.getElementById('export-pdf') as HTMLButtonElement;
+// Exportera till PDF med separata kolumner och total
+function exportToPDF() {
+  if (transactions.length === 0) {
+    alert('Det finns inga transaktioner att exportera.');
+    return;
+  }
+  const doc = new jsPDF();
+  doc.setFontSize(16);
+  doc.text('Budgetrapport', 10, 15);
+  doc.setFontSize(12);
+  const headers = ['Beskrivning', 'Inkomst', 'Utgift', 'Sparande', 'Kategori'];
+  let y = 30;
+  // Rita tabellhuvud
+  doc.text(headers[0], 10, y);
+  doc.text(headers[1], 60, y);
+  doc.text(headers[2], 90, y);
+  doc.text(headers[3], 120, y);
+  doc.text(headers[4], 150, y);
+  y += 7;
+  let total = 0;
+  let totalIncome = 0;
+  let totalExpense = 0;
+  let totalSavings = 0;
+  transactions.forEach(t => {
+    let income = '', expense = '', savings = '';
+    if (t.type === 'income') {
+      income = t.amount.toString().replace('.', ',');
+      total += t.amount;
+      totalIncome += t.amount;
+    } else if (t.type === 'expense') {
+      expense = t.amount.toString().replace('.', ',');
+      total -= t.amount;
+      totalExpense += t.amount;
+    } else if (t.type === 'savings') {
+      savings = t.amount.toString().replace('.', ',');
+      total -= t.amount;
+      totalSavings += t.amount;
+    }
+    doc.text(t.description, 10, y);
+    doc.text(income, 60, y);
+    doc.text(expense, 90, y);
+    doc.text(savings, 120, y);
+    doc.text(t.category, 150, y);
+    y += 7;
+    if (y > 280) {
+      doc.addPage();
+      y = 15;
+    }
+  });
+  // Summeringsrad
+  y += 3;
+  doc.setFontSize(12);
+  doc.text('Summa:', 10, y);
+  doc.text(totalIncome.toString().replace('.', ','), 60, y);
+  doc.text(totalExpense.toString().replace('.', ','), 90, y);
+  doc.text(totalSavings.toString().replace('.', ','), 120, y);
+  y += 10;
+  doc.setFontSize(14);
+  doc.text('Totalt kvar: ' + total.toString().replace('.', ',') + ' kr', 10, y);
+  doc.save('budget.pdf');
+}
+
+if (exportPdfBtn) {
+  exportPdfBtn.addEventListener('click', exportToPDF);
+}
 
 // 1. Ladda kategorier från JSON
 async function loadCategories() {
