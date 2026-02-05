@@ -1,3 +1,4 @@
+import './style.css';
 // Interface för en transaktion
 interface Transaction {
   id: number;
