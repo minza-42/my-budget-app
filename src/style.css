@@ -1,3 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bagel+Fat+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Song+Myung&display=swap");
+
 /* Centrerad knapp för export */
 .center-btn {
   display: block;
@@ -6,10 +10,6 @@
 /*
   Globala CSS-variabler för färger, typsnitt och layout
 */
-/* Google Fonts */
-@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@600&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Bagel+Fat+One&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Song+Myung&display=swap");
 
 /* Använd Song Myung för all text utom h1 */
 h2,
