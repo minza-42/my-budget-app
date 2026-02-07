@@ -1,5 +1,5 @@
 import './style.css';
-import jsPDF from 'jspdf';
+// jsPDF laddas dynamiskt vid export
 // Interface för en transaktion
 interface Transaction {
   id: number;
@@ -22,11 +22,13 @@ const list = document.getElementById('transaction-list') as HTMLUListElement;
 const balanceDisplay = document.getElementById('total-balance') as HTMLElement;
 const exportPdfBtn = document.getElementById('export-pdf') as HTMLButtonElement;
 // Exportera till PDF med separata kolumner och total
-function exportToPDF() {
+async function exportToPDF() {
   if (transactions.length === 0) {
     alert('Det finns inga transaktioner att exportera.');
     return;
   }
+  // Dynamisk import av jsPDF
+  const { default: jsPDF } = await import('jspdf');
   const doc = new jsPDF();
   doc.setFontSize(16);
   doc.text('Budgetrapport', 10, 15);
