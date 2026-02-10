@@ -161,7 +161,7 @@ form.addEventListener('submit', (e) => {
   saveToLocalStorage();
   updateUI();
   form.reset();
-  categorySelect.selectedIndex = 0; // Återställ till "Välj kategori..."
+  categorySelect.selectedIndex = 0;
 });
 
 // 5. Radera transaktion (Görs tillgänglig via window för onclick)

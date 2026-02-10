@@ -35,7 +35,7 @@ td {
   --text-muted: #546e7a;
 }
 
-/* Screen reader only text - Endast för skärmläsare, döljs visuellt */
+/* Endast för skärmläsare, döljs visuellt */
 .sr-only {
   position: absolute;
   width: 1px;
