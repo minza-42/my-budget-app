@@ -20,6 +20,24 @@ const categorySelect = document.getElementById(
 const list = document.getElementById("transaction-list") as HTMLUListElement;
 const balanceDisplay = document.getElementById("total-balance") as HTMLElement;
 const exportPdfBtn = document.getElementById("export-pdf") as HTMLButtonElement;
+const chartCanvas = document.getElementById(
+	"budget-chart",
+) as HTMLCanvasElement;
+const chartLegend = document.getElementById("chart-legend") as HTMLUListElement;
+const chartEmptyMessage = document.getElementById(
+	"chart-empty-message",
+) as HTMLParagraphElement;
+
+const chartColors = [
+	"#0b6e4f",
+	"#1f7a8c",
+	"#bf4342",
+	"#f4a259",
+	"#5f0f40",
+	"#ff7f11",
+	"#6a994e",
+	"#386641",
+];
 
 // Exportera till PDF med separata kolumner och total
 async function exportToPDF(): Promise<void> {
@@ -27,6 +45,10 @@ async function exportToPDF(): Promise<void> {
 		alert("Det finns inga transaktioner att exportera.");
 		return;
 	}
+
+	// Säkerställ att diagrammet är uppdaterat innan export.
+	renderBudgetChart();
+
 	// Dynamisk import av jsPDF
 	const { default: jsPDF } = await import("jspdf");
 	const doc = new jsPDF();
@@ -35,6 +57,7 @@ async function exportToPDF(): Promise<void> {
 	doc.setFontSize(12);
 	const headers = ["Beskrivning", "Inkomst", "Utgift", "Sparande", "Kategori"];
 	let y = 30;
+
 	// Rita tabellhuvud
 	doc.text(headers[0], 10, y);
 	doc.text(headers[1], 60, y);
@@ -84,6 +107,30 @@ async function exportToPDF(): Promise<void> {
 	y += 10;
 	doc.setFontSize(14);
 	doc.text(`Totalt kvar: ${total.toString().replace(".", ",")} kr`, 10, y);
+
+	if (chartCanvas.style.display !== "none") {
+		const chartImage = chartCanvas.toDataURL("image/png");
+		const chartWidth = 68;
+		const chartHeight = 68;
+		const chartY = y + 8;
+
+		if (chartY + chartHeight + 12 > 285) {
+			doc.addPage();
+		}
+
+		const chartX = (210 - chartWidth) / 2;
+		const finalChartY = chartY + chartHeight + 12 > 285 ? 30 : chartY;
+
+		doc.addImage(chartImage, "PNG", chartX, finalChartY, chartWidth, chartHeight);
+		doc.setFontSize(10);
+		doc.text(
+			"Budgethjul",
+			chartX + chartWidth / 2,
+			finalChartY + chartHeight + 5,
+		);
+		doc.setFontSize(12);
+	}
+
 	doc.save("budget.pdf");
 }
 
@@ -93,14 +140,42 @@ if (exportPdfBtn) {
 
 // 1. Ladda kategorier från JSON
 async function loadCategories(): Promise<void> {
-	try {
-		const response = await fetch("./categories.json");
-		const data: CategoryData = await response.json();
-		for (const cat of data.categories) {
+	const fallbackCategories = [
+		"Lön",
+		"CSN",
+		"Mat",
+		"Hyra",
+		"Nöje",
+		"Transport",
+		"Övrigt",
+	];
+
+	const setCategories = (categories: string[]): void => {
+		const placeholderOption = categorySelect.querySelector('option[value=""]');
+		categorySelect.innerHTML = "";
+		if (placeholderOption) {
+			categorySelect.appendChild(placeholderOption);
+		}
+
+		for (const cat of categories) {
 			const option = document.createElement("option");
 			option.value = cat;
 			option.textContent = cat;
 			categorySelect.appendChild(option);
+		}
+	};
+
+	// Visa val direkt, även om hämtningen från JSON skulle misslyckas.
+	setCategories(fallbackCategories);
+
+	try {
+		const response = await fetch("/categories.json");
+		if (!response.ok) {
+			throw new Error(`Kunde inte läsa kategorier (${response.status})`);
+		}
+		const data: CategoryData = await response.json();
+		if (data.categories.length > 0) {
+			setCategories(data.categories);
 		}
 	} catch (error) {
 		console.error("Kunde inte ladda kategorier:", error);
@@ -110,6 +185,81 @@ async function loadCategories(): Promise<void> {
 // 2. Spara till Local Storage
 function saveToLocalStorage(): void {
 	localStorage.setItem("transactions", JSON.stringify(transactions));
+}
+
+function formatAmount(value: number): string {
+	return value.toFixed(2).replace(".", ",");
+}
+
+function renderBudgetChart(): void {
+	const ctx = chartCanvas.getContext("2d");
+	if (!ctx) {
+		return;
+	}
+
+	const totalsByCategory: Record<string, number> = {};
+	let netTotal = 0;
+	for (const transaction of transactions) {
+		const signedAmount = transaction.type === "income" ? transaction.amount : -transaction.amount;
+		netTotal += signedAmount;
+		totalsByCategory[transaction.category] =
+			(totalsByCategory[transaction.category] || 0) + Math.abs(signedAmount);
+	}
+
+	const entries = Object.entries(totalsByCategory).filter(([, total]) => total > 0);
+	const chartTotal = entries.reduce((sum, [, total]) => sum + total, 0);
+
+	ctx.clearRect(0, 0, chartCanvas.width, chartCanvas.height);
+	chartLegend.innerHTML = "";
+
+	if (entries.length === 0 || chartTotal === 0) {
+		chartCanvas.style.display = "none";
+		chartEmptyMessage.hidden = false;
+		return;
+	}
+
+	chartCanvas.style.display = "block";
+	chartEmptyMessage.hidden = true;
+
+	let startAngle = -Math.PI / 2;
+	const centerX = chartCanvas.width / 2;
+	const centerY = chartCanvas.height / 2;
+	const radius = 120;
+	const innerRadius = 65;
+
+	entries.forEach(([category, value], index) => {
+		const sliceAngle = (value / chartTotal) * Math.PI * 2;
+		const endAngle = startAngle + sliceAngle;
+		const color = chartColors[index % chartColors.length];
+
+		ctx.beginPath();
+		ctx.moveTo(centerX, centerY);
+		ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+		ctx.closePath();
+		ctx.fillStyle = color;
+		ctx.fill();
+
+		const legendItem = document.createElement("li");
+		legendItem.innerHTML = `
+      <span class="legend-swatch" style="background-color:${color}"></span>
+      <span>${category}: ${formatAmount(value)} kr (${Math.round((value / chartTotal) * 100)} %)</span>
+    `;
+		chartLegend.appendChild(legendItem);
+
+		startAngle = endAngle;
+	});
+
+	ctx.beginPath();
+	ctx.fillStyle = "#ffffff";
+	ctx.arc(centerX, centerY, innerRadius, 0, Math.PI * 2);
+	ctx.fill();
+
+	ctx.fillStyle = "#1f2933";
+	ctx.font = "bold 17px Song Myung";
+	ctx.textAlign = "center";
+	ctx.fillText("Saldo", centerX, centerY - 6);
+	ctx.font = "15px Song Myung";
+	ctx.fillText(`${formatAmount(netTotal)} kr`, centerX, centerY + 18);
 }
 
 // 3. Uppdatera Balans och UI
@@ -146,6 +296,7 @@ function updateUI(): void {
 
 	// Färgkoda balansen
 	balanceDisplay.className = total >= 0 ? "positive" : "negative";
+	renderBudgetChart();
 }
 
 // 4. Lägg till transaktion
