@@ -12,12 +12,11 @@ En modern, snabb och tillgänglig webbapplikation för att hantera din vardagsek
 - **Dynamisk PDF-export:** Skapa en snyggt formaterad rapport av din budget med ett klick.
 - **Smart Lagring:** All data sparas i webbläsarens `localStorage` – dina poster finns kvar även om du stänger webbläsaren.
 - **Hög Tillgänglighet (A11y):** Fullt stöd för skärmläsare och tangentbordsnavigation.
+- **Budgethjul (Cirkeldiagram):** Visuell översikt av dina utgifter och inkomster per kategori.
 - **Responsiv Design:** Optimerad för både mobila enheter och desktop med modern CSS (`clamp`, Flexbox).
 - **Anpassad 404-sida:** En lekfull och informativ felsida om du hamnar på fel URL.
 
 ## 📸 Skärmdumpar
-
-### Överblick & Inmatning
 
 Lighthouse Desktop
 ![Lighthouse Desktop](image-1.png)
@@ -29,7 +28,7 @@ Lighthouse Mobile
 
 ![404-sida](image-3.png)
 
-### PDF-Rapport
+PDF-Rapport
 
 ![PDF Export](image-2.png)
 

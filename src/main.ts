@@ -169,7 +169,7 @@ async function loadCategories(): Promise<void> {
 	setCategories(fallbackCategories);
 
 	try {
-		const response = await fetch("/categories.json");
+		const response = await fetch(`${import.meta.env.BASE_URL}categories.json`);
 		if (!response.ok) {
 			throw new Error(`Kunde inte läsa kategorier (${response.status})`);
 		}
