@@ -1,3 +1,10 @@
-{
-  "categories": ["Lön", "CSN", "Mat", "Hyra", "Nöje", "Transport", "Övrigt"]
-}
+[
+  { "name": "Lön", "color": "#4CAF50" },
+  { "name": "CSN", "color": "#81C784" },
+  { "name": "Sparande", "color": "#2E7D32" },
+  { "name": "Mat", "color": "#FF9800" },
+  { "name": "Hyra", "color": "#D32F2F" },
+  { "name": "Nöje", "color": "#2196F3" },
+  { "name": "Transport", "color": "#9C27B0" },
+  { "name": "Övrigt", "color": "#9E9E9E" }
+]

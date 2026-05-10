@@ -31,6 +31,7 @@ Lighthouse Mobile
 PDF-Rapport
 
 ![PDF Export](image-2.png)
+![PDF Export](image-7.png)
 
 ## 🛠 Teknisk Stack
 
