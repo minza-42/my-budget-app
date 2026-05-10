@@ -2,8 +2,8 @@
 
 En modern, snabb och tillgänglig webbapplikation för att hantera din vardagsekonomi. Appen låter dig logga inkomster, utgifter och sparande, samt exportera dina data till en professionell PDF-rapport.
 
-![Huvudskärmdump](image-4.png)
-![Huvudskärmdump-2](image-6.png)
+![Huvudskärmdump](img/image-4.png)
+![Huvudskärmdump-2](img/image-6.png)
 
 ## 🚀 Funktioner
 
@@ -19,19 +19,19 @@ En modern, snabb och tillgänglig webbapplikation för att hantera din vardagsek
 ## 📸 Skärmdumpar
 
 Lighthouse Desktop
-![Lighthouse Desktop](image-1.png)
+![Lighthouse Desktop](img/image-1.png)
 
 Lighthouse Mobile
-![Lighthouse Mobile](image.png)
+![Lighthouse Mobile](img/image.png)
 
 404-sida
 
-![404-sida](image-3.png)
+![404-sida](img/image-3.png)
 
 PDF-Rapport
 
-![PDF Export](image-2.png)
-![PDF Export](image-7.png)
+![PDF Export](img/image-2.png)
+![PDF Export](img/image-7.png)
 
 ## 🛠 Teknisk Stack
 
@@ -45,7 +45,7 @@ PDF-Rapport
 
 1.  **Klona repot:**
     ```bash
-    git clone [https://github.com/Medieinstitutet/fed25d-js-inl-2-budget-app-minza-42.git](https://github.com/Medieinstitutet/fed25d-js-inl-2-budget-app-minza-42.git)
+    git clone https://github.com/Medieinstitutet/fed25d-js-inl-2-budget-app-minza-42.git
     ```
 2.  **Installera beroenden:**
     ```bash
