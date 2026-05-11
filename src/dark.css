@@ -1,0 +1,22 @@
+/* Dark mode variables */
+.dark {
+  --bg: #18191a;
+  --surface: #232526;
+  --surface-2: #222324;
+  --border: #2c2d2f;
+  --border-focus: #e8e8e4;
+
+  --accent: #c4c4c4;
+  --accent-soft: rgba(247, 247, 245, 0.06);
+
+  --income: #3bad4e;
+  --income-bg: #1a6640;
+  --expense: #ff7f7f;
+  --expense-bg: #b83232;
+  --savings: #7fa6ff;
+  --savings-bg: #1a4fa6;
+
+  --text: #f7f7f5;
+  --text-muted: #7c7c7c;
+  --text-dim: #888882;
+}

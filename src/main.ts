@@ -38,6 +38,41 @@ function render(): void {
 }
 
 // ── Event listeners ──────────────────────────────────────
+
+// ── Dark/Light mode ───────────────────────────────────────
+const themeToggleBtn = document.getElementById("theme-toggle") as HTMLButtonElement | null;
+const themeIcon = document.getElementById("theme-icon") as HTMLImageElement | null;
+const THEME_KEY = "budget-theme";
+
+function setTheme(theme: "light" | "dark") {
+	       if (theme === "dark") {
+		       document.body.classList.add("dark");
+		       if (themeIcon) themeIcon.src = "img/dark-mode.svg";
+	       } else {
+		       document.body.classList.remove("dark");
+		       if (themeIcon) themeIcon.src = "img/light-mode.svg";
+	       }
+	       localStorage.setItem(THEME_KEY, theme);
+}
+
+function toggleTheme() {
+	const isDark = document.body.classList.contains("dark");
+	setTheme(isDark ? "light" : "dark");
+}
+
+if (themeToggleBtn) {
+	themeToggleBtn.addEventListener("click", toggleTheme);
+}
+
+// Init theme on load
+const savedTheme = localStorage.getItem(THEME_KEY) as "light" | "dark" | null;
+if (savedTheme) {
+	setTheme(savedTheme);
+} else {
+	// Auto-detect system preference
+	const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+	setTheme(prefersDark ? "dark" : "light");
+}
 form.addEventListener("submit", (e: Event) => {
 	e.preventDefault();
 

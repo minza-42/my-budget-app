@@ -16,22 +16,26 @@ export async function exportToPDF(
 	const { default: jsPDF } = await import("jspdf");
 	const doc = new jsPDF();
 	const pageW = 210;
-	const margin = 20; // Något bredare marginal för luftigare känsla
+	const margin = 20;
 	const contentW = pageW - margin * 2;
 
-	// ── Färger från style.css ─────────────────────────────
-	const colorBg: [number, number, number]         = [247, 247, 245]; // --bg
-	const colorSurface: [number, number, number]    = [255, 255, 255]; // --surface
-	const colorAccent: [number, number, number]     = [26, 26, 26];    // --accent
-	const colorBorder: [number, number, number]     = [232, 232, 228]; // --border
-	const colorText: [number, number, number]       = [26, 26, 26];    // --text
-	const colorTextMuted: [number, number, number]  = [136, 136, 130]; // --text-muted
-	
-	const colorIncome: [number, number, number]     = [26, 102, 64];   // --income
-	const colorExpense: [number, number, number]    = [184, 50, 50];   // --expense
-	const colorSavings: [number, number, number]    = [26, 79, 166];   // --savings
+	// Kontrollera om mörkt läge är aktivt
+	const isDarkMode = document.body.classList.contains("dark");
 
-	// ── Beräkningar ─────────────────────────────────────────
+	// Dynamiska färger baserat på valt tema
+	const colorBg: [number, number, number]         = isDarkMode ? [24, 25, 26]   : [247, 247, 245]; 
+	const colorSurface: [number, number, number]    = isDarkMode ? [35, 37, 38]   : [255, 255, 255]; 
+	const colorAccent: [number, number, number]     = isDarkMode ? [247, 247, 245]: [26, 26, 26];    
+	const colorBorder: [number, number, number]     = isDarkMode ? [44, 45, 47]   : [232, 232, 228]; 
+	const colorText: [number, number, number]       = isDarkMode ? [247, 247, 245]: [26, 26, 26];    
+	const colorTextMuted: [number, number, number]  = isDarkMode ? [176, 176, 170]: [136, 136, 130]; 
+	
+	// Funktionella färger
+	const colorIncome: [number, number, number]     = isDarkMode ? [59, 173, 78]  : [26, 102, 64];   
+	const colorExpense: [number, number, number]    = isDarkMode ? [255, 127, 127]: [184, 50, 50];   
+	const colorSavings: [number, number, number]    = isDarkMode ? [127, 166, 255]: [26, 79, 166];   
+
+	// --- Beräkningar och rendering (samma logik som förut men med dynamiska färger) ---
 	let totalIncome = 0;
 	let totalExpense = 0;
 	let totalSavings = 0;
@@ -42,14 +46,12 @@ export async function exportToPDF(
 	}
 	const netTotal = totalIncome - totalExpense - totalSavings;
 
-	// ── Sätt bakgrundsfärg på hela sidan ────────────────────
 	doc.setFillColor(...colorBg);
 	doc.rect(0, 0, pageW, 297, "F");
 
-	// ── Header (Matchar h1 i CSS) ───────────────────────────
 	let y = 25;
 	doc.setTextColor(...colorText);
-	doc.setFont("times", "italic"); // Närmsta standard-font för Instrument Serif
+	doc.setFont("times", "italic");
 	doc.setFontSize(32);
 	doc.text("Budget App", margin, y);
 	
@@ -61,33 +63,29 @@ export async function exportToPDF(
 	});
 	doc.text(dateStr, pageW - margin, y - 2, { align: "right" });
 
-	// Linje under header
 	y += 10;
 	doc.setDrawColor(...colorBorder);
 	doc.line(margin, y, pageW - margin, y);
 
-	// ── Totalt Saldo (Hero-sektion) ──────────────────────────
-	y += 15; // Ökat avstånd från headern
+	y += 15;
 	doc.setFontSize(8);
 	doc.setFont("helvetica", "bold");
 	doc.setTextColor(...colorTextMuted);
-	// Ökat charSpace till 1.5 för en mer "designad" look
-	doc.text("TOTALT SALDO", pageW / 2 - 5, y, { align: "center", charSpace: 1.5 }); // Centrera texten
+	doc.text("TOTALT SALDO", pageW / 2, y, { align: "center", charSpace: 1.5 });
 	
-	y += 18; // Ökat avstånd mellan texten och summan (från 12 till 18)
+	y += 18;
 	const balanceColor = netTotal >= 0 ? colorIncome : colorExpense;
 	doc.setTextColor(...balanceColor);
 	doc.setFont("times", "normal");
-	doc.setFontSize(44); // Något mindre för att kännas mer elegant
+	doc.setFontSize(44);
 	doc.text(`${formatAmount(netTotal)} kr`, pageW / 2, y, { align: "center" });
 
-	y += 20; // Extra marginal innan nästa sektion börjar
+	y += 20;
 
-	// ── Transaktionstabell ──────────────────────────────────
 	doc.setFont("helvetica", "bold");
 	doc.setFontSize(12);
 	doc.setTextColor(...colorAccent);
-	doc.text("Transaktioner", margin, y, { align: "left" });
+	doc.text("Transaktioner", margin, y);
 
 	y += 6;
 	const colDesc = margin;
@@ -95,7 +93,6 @@ export async function exportToPDF(
 	const colAmt  = pageW - margin;
 	const rowH = 10;
 
-	// Tabellhuvud
 	doc.setFontSize(9);
 	doc.setTextColor(...colorTextMuted);
 	doc.text("BESKRIVNING", colDesc, y);
@@ -107,7 +104,6 @@ export async function exportToPDF(
 	doc.line(margin, y, pageW - margin, y);
 	y += 2;
 
-// ── Rader (Transaktioner) ──────────────────────────────
 	for (const t of transactions) {
 		if (y > 260) { 
 			doc.addPage(); 
@@ -116,23 +112,19 @@ export async function exportToPDF(
 			y = 20; 
 		}
 		
-		// Bakgrund för rad
 		doc.setFillColor(...colorSurface);
 		doc.roundedRect(margin - 2, y, contentW + 4, rowH - 2, 2, 2, "F");
 
-		// BESKRIVNING (Här sätter vi Bold för att säkerställa att texten syns bra)
 		doc.setFont("helvetica", "bold");
 		doc.setFontSize(10);
 		doc.setTextColor(...colorText);
 		doc.text(t.description, colDesc + 2, y + 5);
 
-		// KATEGORI (Normal stil)
 		doc.setFont("helvetica", "normal");
 		doc.setFontSize(8);
 		doc.setTextColor(...colorTextMuted);
 		doc.text(t.category.toUpperCase(), colCat, y + 5);
 
-		// BELOPP (Bold stil)
 		doc.setFontSize(10);
 		doc.setFont("helvetica", "bold");
 		const typeColor = t.type === "income" ? colorIncome : (t.type === "savings" ? colorSavings : colorExpense);
@@ -143,7 +135,6 @@ export async function exportToPDF(
 		y += rowH;
 	}
 
-	// ── Diagram-sektion (Budgethjul) ────────────────────────
 	if (chartCanvas.style.display !== "none") {
 		y += 15;
 		if (y + 80 > 280) { doc.addPage(); doc.setFillColor(...colorBg); doc.rect(0,0,pageW,297,"F"); y = 20; }
@@ -152,21 +143,21 @@ export async function exportToPDF(
 		doc.line(margin, y, pageW - margin, y);
 		
 		y += 15;
-			   doc.setFont("helvetica", "bold");
-			   doc.setFontSize(10);
-			   doc.setTextColor(...colorTextMuted);
-			   doc.text("FÖRDELNING", pageW / 2 - 5, y, { align: "center", charSpace: 1.5 }); // Centrera texten
+		doc.setFont("helvetica", "bold");
+		doc.setFontSize(10);
+		doc.setTextColor(...colorTextMuted);
+		doc.text("FÖRDELNING", pageW / 2, y, { align: "center", charSpace: 1.5 });
 
 		y += 15;
 		const chartSize = 60;
 		const chartX = (pageW - chartSize) / 2;
-		// Lägg till vit platta bakom diagrammet för att det ska poppa
-		doc.setFillColor(255, 255, 255);
+		
+		// Anpassa plattan bakom diagrammet till ytfärgen
+		doc.setFillColor(...colorSurface);
 		doc.roundedRect(chartX - 10, y - 5, chartSize + 20, chartSize + 15, 5, 5, "F");
 		doc.addImage(chartCanvas.toDataURL("image/png"), "PNG", chartX, y, chartSize, chartSize);
 	}
 
-	// ── Sidfot ────────────────────────────────────────────────
 	const pageCount = (doc as any).internal.getNumberOfPages();
 	for (let p = 1; p <= pageCount; p++) {
 		doc.setPage(p);
@@ -175,5 +166,5 @@ export async function exportToPDF(
 		doc.text(`Sida ${p} av ${pageCount}`, pageW / 2, 288, { align: "center" });
 	}
 
-	doc.save("budgetrapport.pdf");
+	doc.save(`budgetrapport-${isDarkMode ? 'dark' : 'light'}.pdf`);
 }

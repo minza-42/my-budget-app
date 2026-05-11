@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import "./dark.css";
 
 *,
 *::before,
@@ -16,10 +17,10 @@
   --border: #e8e8e4;
   --border-focus: #1a1a1a;
 
-  --accent: #1a1a1a;
+  --accent: #222222;
   --accent-soft: rgba(26, 26, 26, 0.06);
 
-  --income: #1a6640;
+  --income: #2fa369;
   --income-bg: #edf7f2;
   --expense: #b83232;
   --expense-bg: #fdf1f1;
@@ -167,14 +168,14 @@ input::placeholder {
 input:focus,
 select:focus {
   border-color: var(--border-focus);
-  box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.08);
+  box-shadow: 0 0 0 3px var(--accent-soft);
 }
 
 select {
   cursor: pointer;
 }
 select option {
-  background: #fff;
+  background: var(--surface);
   color: var(--text);
 }
 
@@ -184,7 +185,7 @@ button[type="submit"] {
   font-weight: 500;
   letter-spacing: 0.01em;
   background: var(--accent);
-  color: #fff;
+  color: var(--bg);
   border: none;
   border-radius: var(--radius-sm);
   padding: 12px;
