@@ -16,7 +16,6 @@ export function updateUI(
 		const val = isIncome ? t.amount : -t.amount;
 		total += val;
 
-		const categoryClass = t.category === "Sparande" ? "category-savings" : "";
 		const typeClass =
 			t.type === "income" ? "income" :
 			t.type === "savings" ? "savings" : "expense";
