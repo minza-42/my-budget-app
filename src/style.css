@@ -18,6 +18,9 @@
 .chart-section h2 {
   margin-bottom: 0.6rem;
   color: #1f2933;
+  text-align: center;
+  width: 100%;
+  display: block;
 }
 
 #chart-empty-message {
@@ -34,7 +37,7 @@
 
 #chart-legend {
   margin-top: 1rem;
-  text-align: left;
+  text-align: center;
 }
 
 #chart-legend li {
@@ -43,6 +46,8 @@
   align-items: center;
   border-bottom: 0;
   padding: 0.35rem 0;
+  justify-content: center;
+  text-align: center;
 }
 
 .legend-swatch {
@@ -246,14 +251,41 @@ ul {
 
 li {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 0.5rem;
   padding: 12px 0;
   border-bottom: 1px solid #eee;
   border-radius: 8px;
   transition:
     background 0.2s,
     transform 0.15s;
+}
+
+.item-name {
+  flex-basis: 30%;
+  min-width: 90px;
+  font-weight: 500;
+  text-align: left;
+}
+
+.item-category {
+  flex-basis: 20%;
+  min-width: 70px;
+  color: #888;
+  text-align: left;
+}
+
+.item-amount {
+  flex-basis: 20%;
+  min-width: 80px;
+  text-align: right;
+  font-weight: bold;
+}
+
+.delete-btn {
+  flex-basis: 15%;
+  min-width: 80px;
+  margin-left: auto;
 }
 
 li:hover {

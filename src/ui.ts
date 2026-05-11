@@ -21,11 +21,12 @@ export function updateUI(
 			t.type === "income" ? "income" :
 			t.type === "savings" ? "savings" : "expense";
 
-		li.innerHTML = `
-			<span class="${categoryClass}">${t.description} (${t.category})</span>
-			<span class="${typeClass}">${isIncome ? "+" : "-"}${t.amount} kr</span>
-			<button class="delete-btn" aria-label="Radera ${t.description}">Radera</button>
-		`;
+		   li.innerHTML = `
+			   <span class="item-name">${t.description}</span>
+			   <span class="item-category">${t.category}</span>
+			   <span class="item-amount ${typeClass}">${isIncome ? "+" : "-"}${t.amount} kr</span>
+			   <button class="delete-btn" aria-label="Radera ${t.description}">Radera</button>
+		   `;
 		li.setAttribute("role", "listitem");
 
 		// Använd addEventListener istället för inline onclick
