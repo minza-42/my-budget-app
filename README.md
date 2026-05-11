@@ -4,6 +4,7 @@ En modern, snabb och tillgänglig webbapplikation för att hantera din vardagsek
 
 ![Huvudskärmdump](img/image-4.png)
 ![Huvudskärmdump-2](img/image-6.png)
+Utzoomad för att få plats med allt.
 
 ## 🚀 Funktioner
 
@@ -19,10 +20,10 @@ En modern, snabb och tillgänglig webbapplikation för att hantera din vardagsek
 ## 📸 Skärmdumpar
 
 Lighthouse Desktop
-![Lighthouse Desktop](img/image-1.png)
+![Lighthouse Desktop](img/image.png)
 
 Lighthouse Mobile
-![Lighthouse Mobile](img/image.png)
+![Lighthouse Mobile](img/image-1.png)
 
 404-sida
 
