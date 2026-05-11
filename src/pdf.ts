@@ -19,19 +19,19 @@ export async function exportToPDF(
 	const margin = 14;
 	const contentW = pageW - margin * 2;
 
-	// ── Färger ──────────────────────────────────────────────
-	const colorPrimary: [number, number, number]    = [42, 122, 226];
-	const colorIncome: [number, number, number]     = [23, 108, 42];
-	const colorExpense: [number, number, number]    = [176, 0, 32];
-	const colorSavings: [number, number, number]    = [42, 122, 226];
-	const colorHeaderBg: [number, number, number]   = [42, 122, 226];
+	// ── Färger ─────────────────────────────────────────
+	const colorPrimary: [number, number, number]    = [26, 26, 26]; // --accent
+	const colorIncome: [number, number, number]     = [26, 102, 64]; // --income
+	const colorExpense: [number, number, number]    = [184, 50, 50]; // --expense
+	const colorSavings: [number, number, number]    = [26, 79, 166]; // --savings
+	const colorHeaderBg: [number, number, number]   = [26, 26, 26]; // --accent
 	const colorHeaderText: [number, number, number] = [255, 255, 255];
-	const colorRowEven: [number, number, number]    = [240, 244, 255];
-	const colorRowOdd: [number, number, number]     = [255, 255, 255];
-	const colorBorder: [number, number, number]     = [220, 220, 235];
-	const colorSummaryBg: [number, number, number]  = [230, 240, 255];
-	const colorText: [number, number, number]       = [44, 62, 80];
-	const colorMuted: [number, number, number]      = [120, 140, 160];
+	const colorRowEven: [number, number, number]    = [242, 242, 240]; // --surface-2
+	const colorRowOdd: [number, number, number]     = [255, 255, 255]; // --surface
+	const colorBorder: [number, number, number]     = [232, 232, 228]; // --border
+	const colorSummaryBg: [number, number, number]  = [247, 247, 245]; // --bg
+	const colorText: [number, number, number]       = [26, 26, 26]; // --text
+	const colorMuted: [number, number, number]      = [136, 136, 130]; // --text-muted
 
 	// ── Beräkningar ─────────────────────────────────────────
 	let totalIncome = 0;

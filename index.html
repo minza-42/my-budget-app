@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Enkel budget app för att hantera inkomster, utgifter och sparande" />
-  <title>Budget App - Hantera din ekonomi</title>
+  <title>Budget App – Hantera din ekonomi</title>
   <link rel="icon" type="image/svg+xml" href="img/piggy-bank.svg">
   <link rel="stylesheet" href="src/style.css" />
 </head>
@@ -16,49 +16,58 @@
   </header>
 
   <main id="app">
+
+    <!-- Balans -->
     <section class="balance-container" aria-labelledby="balance-heading">
-      <h2 id="balance-heading">Balans: <span id="total-balance" aria-live="polite">0</span> kr</h2>
+      <h2 id="balance-heading">Totalt saldo</h2>
+      <p id="total-balance" aria-live="polite">0</p>
+      <span style="font-size:0.82rem;color:var(--text-muted);letter-spacing:0.06em">kr</span>
     </section>
-    <!-- Formulär för att lägga till nya transaktioner -->
+
+    <!-- Formulär -->
     <section aria-labelledby="form-heading">
       <h2 id="form-heading" class="sr-only">Lägg till transaktion</h2>
       <form id="budget-form" aria-label="Formulär för att lägga till transaktioner">
+
         <label for="description" class="sr-only">Beskrivning</label>
-        <input type="text" id="description" placeholder="Beskrivning (t.ex. Hyra)" required aria-required="true" />
+        <input type="text" id="description" placeholder="Beskrivning (t.ex. Hyra)" required aria-required="true"
+          autocomplete="off" />
 
         <label for="amount" class="sr-only">Belopp</label>
-        <input type="number" id="amount" placeholder="Belopp" required aria-required="true" min="0" step="0.01" />
+        <input type="number" id="amount" placeholder="Belopp (kr)" required aria-required="true" min="0" step="0.01" />
 
         <label for="type" class="sr-only">Transaktionstyp</label>
         <select id="type" aria-label="Välj transaktionstyp">
           <option value="income">Inkomst</option>
-          <!-- Formulär för att lägga till nya transaktioner -->
           <option value="expense">Utgift</option>
           <option value="savings">Sparande (överföring)</option>
         </select>
-        <!-- Kategori dropdown -->
+
         <label for="category-select" class="sr-only">Kategori</label>
         <select id="category-select" aria-label="Välj kategori" required aria-required="true">
-          <option value="" disabled selected>Välj kategori...</option>
+          <option value="" disabled selected>Välj kategori…</option>
         </select>
 
         <button type="submit">Lägg till post</button>
       </form>
     </section>
 
+    <!-- Transaktioner -->
     <section aria-labelledby="transactions-heading">
       <h2 id="transactions-heading" class="sr-only">Transaktioner</h2>
       <ul id="transaction-list" aria-label="Lista över transaktioner"></ul>
 
-
+      <!-- Diagram -->
       <section class="chart-section" aria-labelledby="chart-heading">
-        <h2 id="chart-heading">Budgethjul</h2>
+        <h2 id="chart-heading">Fördelning</h2>
         <p id="chart-empty-message">Lägg till transaktioner för att se fördelningen per kategori.</p>
         <canvas id="budget-chart" width="300" height="300" aria-label="Cirkeldiagram över budgetfördelning"
           role="img"></canvas>
         <ul id="chart-legend" aria-label="Förklaring till budgethjulet"></ul>
-        <button id="export-pdf" type="button" class="center-btn">Exportera till PDF</button>
+        <button id="export-pdf" type="button" class="center-btn">↓ Exportera PDF</button>
       </section>
+    </section>
+
   </main>
 
   <script type="module" src="src/main.ts"></script>

@@ -1,90 +1,41 @@
-@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@600&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Bagel+Fat+One&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Song+Myung&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
 
-/* Centrerad knapp för export */
-.center-btn {
-  display: block;
-  margin: 2rem auto 0 auto;
-}
-
-.chart-section {
-  margin-top: 2rem;
-  padding-top: 1.2rem;
-  border-top: 2px solid #f0f4f8;
-  text-align: center;
-}
-
-.chart-section h2 {
-  margin-bottom: 0.6rem;
-  color: #1f2933;
-  text-align: center;
-  width: 100%;
-  display: block;
-}
-
-#chart-empty-message {
-  color: var(--text-muted);
-  margin-bottom: 0.8rem;
-}
-
-#budget-chart {
-  width: min(300px, 100%);
-  height: auto;
-  margin: 0 auto;
-  display: none;
-}
-
-#chart-legend {
-  margin-top: 1rem;
-  text-align: center;
-}
-
-#chart-legend li {
-  display: flex;
-  gap: 0.55rem;
-  align-items: center;
-  border-bottom: 0;
-  padding: 0.35rem 0;
-  justify-content: center;
-  text-align: center;
-}
-
-.legend-swatch {
-  width: 0.9rem;
-  height: 0.9rem;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-/*
-  Globala CSS-variabler för färger, typsnitt och layout
-*/
-
-/* Använd Song Myung för all text utom h1 */
-h2,
-p,
-li,
-label,
-input,
-select,
-button,
-span,
-a,
-th,
-td {
-  font-family: "Song Myung", serif;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 :root {
-  --font-header: clamp(1.5rem, 5vw, 2.2rem);
-  --app-width: clamp(300px, 95%, 500px);
-  --app-padding: clamp(1rem, 3vw, 2rem);
-  --form-gap: clamp(0.5rem, 2vw, 0.75rem);
-  --text-main: #2c3e50;
-  --text-muted: #546e7a;
+  --bg: #f7f7f5;
+  --surface: #ffffff;
+  --surface-2: #f2f2f0;
+  --border: #e8e8e4;
+  --border-focus: #1a1a1a;
+
+  --accent: #1a1a1a;
+  --accent-soft: rgba(26, 26, 26, 0.06);
+
+  --income: #1a6640;
+  --income-bg: #edf7f2;
+  --expense: #b83232;
+  --expense-bg: #fdf1f1;
+  --savings: #1a4fa6;
+  --savings-bg: #edf2fc;
+
+  --text: #1a1a1a;
+  --text-muted: #888882;
+  --text-dim: #b0b0aa;
+
+  --radius: 12px;
+  --radius-sm: 8px;
+  --font: "Geist", sans-serif;
+  --font-serif: "Instrument Serif", serif;
 }
 
-/* Endast för skärmläsare, döljs visuellt */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -98,247 +49,396 @@ td {
 }
 
 body {
-  background: linear-gradient(135deg, #f0f4f8 0%, #e0e7ff 100%);
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: clamp(1rem, 5vw, 3rem);
-  margin: 0;
-  color: var(--text-main);
-  min-height: 100vh;
-  transition: background 0.5s;
-}
-/* Klass för att använda Song Myung på andra element */
-.song-myung-regular {
-  font-family: "Song Myung", serif;
-  font-weight: 400;
-  font-style: normal;
+  padding: clamp(2rem, 6vw, 4rem) clamp(1rem, 4vw, 2rem);
 }
 
-/* Header */
+/* ── Header ── */
 header {
   width: 100%;
-  text-align: center;
+  max-width: 480px;
+  margin-bottom: 2rem;
+  animation: fadeDown 0.5s ease both;
 }
 
 h1 {
-  font-size: var(--font-header);
-  text-align: center;
-  margin-bottom: 1.5rem;
-  font-family: "Bagel Fat One", system-ui;
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 6vw, 2.8rem);
   font-weight: 400;
-  font-style: normal;
-  letter-spacing: 1px;
-  color: #2a7ae2;
-  position: relative;
+  font-style: italic;
+  color: var(--text);
+  letter-spacing: -0.01em;
+  text-align: center;
+  display: block;
+  width: 100%;
 }
 
-h1::before {
-  font-size: 1.5em;
-  vertical-align: middle;
-  margin-right: 0.2em;
-}
-
+/* ── Layout ── */
 main {
   width: 100%;
-  max-width: var(--app-width);
+  max-width: 480px;
 }
 
-/* Kort-liknande bakgrund för appens innehåll */
 #app {
-  background: #fff;
-  width: 100%;
-  padding: var(--app-padding);
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: clamp(1.5rem, 5vw, 2.25rem);
+  box-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.06),
+    0 1px 3px rgba(0, 0, 0, 0.04);
+  animation: fadeUp 0.5s ease both 0.08s;
 }
 
+/* ── Balance ── */
 .balance-container {
   text-align: center;
-  margin-bottom: 1.5rem;
-  padding-bottom: 1rem;
-  border-bottom: 2px solid #f0f4f8;
+  padding-bottom: 1.75rem;
+  margin-bottom: 1.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.balance-container h2 {
+  font-family: var(--font);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 0.6rem;
 }
 
 #total-balance {
-  font-size: clamp(1.2rem, 4vw, 1.8rem);
+  font-family: var(--font-serif);
+  font-size: clamp(3rem, 10vw, 4.5rem);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--text);
+  transition: color 0.3s;
 }
 
-.positive {
-  color: #176c2a;
-  font-weight: bold;
+#total-balance.positive {
+  color: var(--income);
 }
-.positive::before {
-  content: "✔ ";
+#total-balance.negative {
+  color: var(--expense);
 }
-
-.negative {
-  color: #b00020;
-  font-weight: bold;
-}
-.negative::before {
-  content: "✖ ";
-}
-
-.savings-text {
-  color: #2a7ae2;
-  font-weight: bold;
-}
+.positive::before,
+.negative::before,
 .savings-text::before {
-  content: "➔ ";
+  content: none;
 }
 
+/* ── Form ── */
 form {
   display: flex;
   flex-direction: column;
-  gap: var(--form-gap);
+  gap: 0.6rem;
   margin-bottom: 2rem;
 }
 
 input,
-select,
-button {
-  padding: 12px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+select {
+  font-family: var(--font);
+  font-size: 0.9rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  padding: 11px 13px;
   outline: none;
   transition:
-    border-color 0.2s,
-    box-shadow 0.2s;
+    border-color 0.18s,
+    box-shadow 0.18s;
+  -webkit-appearance: none;
+}
+
+input::placeholder {
+  color: var(--text-dim);
 }
 
 input:focus,
 select:focus {
-  border-color: #005fcc;
-  box-shadow: 0 0 0 3px rgba(0, 95, 204, 0.3);
-  outline: 2px solid transparent;
-  outline-offset: 2px;
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.08);
 }
 
-button {
-  background: linear-gradient(90deg, #2a7ae2 60%, #7f53ac 100%);
-  color: white;
-  border: none;
+select {
   cursor: pointer;
-  font-weight: bold;
-  box-shadow: 0 2px 8px rgba(42, 122, 226, 0.08);
+}
+select option {
+  background: #fff;
+  color: var(--text);
+}
+
+button[type="submit"] {
+  font-family: var(--font);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  cursor: pointer;
+  margin-top: 0.3rem;
   transition:
-    transform 0.15s,
-    box-shadow 0.2s;
+    opacity 0.18s,
+    transform 0.15s;
 }
 
-button:hover,
-button:focus {
-  transform: scale(1.06);
-  box-shadow: 0 4px 16px rgba(127, 83, 172, 0.15);
+button[type="submit"]:hover {
+  opacity: 0.82;
+  transform: translateY(-1px);
 }
-
-button:focus {
-  outline: 3px solid #ffb347;
+button[type="submit"]:active {
+  transform: translateY(0);
+  opacity: 1;
+}
+button[type="submit"]:focus {
+  outline: 3px solid rgba(26, 26, 26, 0.25);
   outline-offset: 2px;
 }
 
-button:focus:not(:focus-visible) {
-  outline: none;
-}
-
+/* ── Transaction list ── */
 ul {
   list-style: none;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
 }
 
 li {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 12px 0;
-  border-bottom: 1px solid #eee;
-  border-radius: 8px;
+  gap: 0.65rem;
+  padding: 0.8rem 0.9rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
   transition:
-    background 0.2s,
-    transform 0.15s;
-}
-
-.item-name {
-  flex-basis: 30%;
-  min-width: 90px;
-  font-weight: 500;
-  text-align: left;
-}
-
-.item-category {
-  flex-basis: 20%;
-  min-width: 70px;
-  color: #888;
-  text-align: left;
-}
-
-.item-amount {
-  flex-basis: 20%;
-  min-width: 80px;
-  text-align: right;
-  font-weight: bold;
-}
-
-.delete-btn {
-  flex-basis: 15%;
-  min-width: 80px;
-  margin-left: auto;
+    background 0.18s,
+    border-color 0.18s;
+  animation: slideIn 0.28s ease both;
 }
 
 li:hover {
-  background: #e0e7ff44;
-  transform: scale(1.01);
+  background: var(--surface-2);
+  border-color: #d8d8d4;
 }
 
+.item-name {
+  flex: 1 1 0;
+  font-size: 0.88rem;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item-category {
+  flex-shrink: 0;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: var(--surface-2);
+  border-radius: 20px;
+  padding: 3px 9px;
+  letter-spacing: 0.01em;
+}
+
+.item-amount {
+  flex-shrink: 0;
+  font-size: 0.88rem;
+  font-weight: 600;
+  min-width: 76px;
+  text-align: right;
+}
+
+.item-amount.income {
+  color: var(--income);
+}
+.item-amount.expense {
+  color: var(--expense);
+}
+.item-amount.savings {
+  color: var(--savings);
+}
+
+/* ── Delete ── */
 .delete-btn {
-  background: linear-gradient(90deg, #ff4d4d 60%, #ffb347 100%);
-  color: white;
-  padding: 6px 12px;
-  font-size: 0.8rem;
-  border-radius: 4px;
+  flex-shrink: 0;
+  font-family: var(--font);
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: transparent;
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 10px;
+  cursor: pointer;
   transition:
-    background 0.2s,
-    transform 0.15s;
+    color 0.18s,
+    border-color 0.18s,
+    background 0.18s;
 }
 
-.delete-btn:hover,
-.delete-btn:focus {
-  background: linear-gradient(90deg, #ffb347 60%, #ff4d4d 100%);
-  transform: scale(1.08) rotate(1deg);
+.delete-btn:hover {
+  color: var(--expense);
+  border-color: #e8c4c4;
+  background: var(--expense-bg);
 }
 
 .delete-btn:focus {
-  outline: 3px solid #2a7ae2;
+  outline: 2px solid var(--expense);
   outline-offset: 2px;
 }
-
 .delete-btn:focus:not(:focus-visible) {
   outline: none;
 }
 
-/* Färger för transaktionstyper */
-.income {
-  color: #176c2a;
-  font-weight: bold;
+/* ── Chart ── */
+.chart-section {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  text-align: center;
 }
 
-.expense {
-  color: #b00020;
-  font-weight: bold;
+.chart-section h2 {
+  font-family: var(--font);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 1rem;
 }
 
-.savings {
-  color: #2a7ae2;
-  font-weight: bold;
+#chart-empty-message {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  margin-bottom: 0.8rem;
 }
 
+#budget-chart {
+  width: min(240px, 90%);
+  height: auto;
+  margin: 0 auto;
+  display: none;
+}
+
+#chart-legend {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+#chart-legend li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0;
+  background: none;
+  border: none;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  animation: none;
+  transform: none !important;
+}
+
+#chart-legend li:hover {
+  background: none;
+  border: none;
+}
+
+.legend-swatch {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── Export ── */
+.center-btn {
+  display: block;
+  margin: 1.5rem auto 0;
+  font-family: var(--font);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 9px 20px;
+  cursor: pointer;
+  transition:
+    color 0.18s,
+    border-color 0.18s,
+    background 0.18s;
+  box-shadow: none;
+}
+
+.center-btn:hover {
+  color: var(--text);
+  border-color: #c8c8c4;
+  background: var(--surface-2);
+}
+
+.center-btn:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ── Touch ── */
 @media (pointer: coarse) {
   input,
   select,
   button {
     min-height: 48px;
+  }
+}
+
+/* ── Animations ── */
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
