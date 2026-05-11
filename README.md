@@ -2,8 +2,8 @@
 
 En modern, snabb och tillgänglig webbapplikation för att hantera din vardagsekonomi. Appen låter dig logga inkomster, utgifter och sparande, samt exportera dina data till en professionell PDF-rapport.
 
-![Huvudskärmdump](img/image-4.png)
-![Huvudskärmdump-2](img/image-6.png)
+![Huvudskärmdump](img/huvudskärmdump-1.png)
+![Huvudskärmdump-2](img/huvudskärmdump-2.png)
 Utzoomad för att få plats med allt.
 
 ## 🚀 Funktioner
@@ -11,28 +11,29 @@ Utzoomad för att få plats med allt.
 - **Transaktionshantering:** Lägg till och radera inkomster, utgifter och sparande.
 - **Realtidsbalans:** Din totala balans uppdateras omedelbart och färgkodas (grön för plus, röd för minus).
 - **Dynamisk PDF-export:** Skapa en snyggt formaterad rapport av din budget med ett klick.
-- **Smart Lagring:** All data sparas i webbläsarens `localStorage` – dina poster finns kvar även om du stänger webbläsaren.
+- **Smart Lagring:** All data sparas i webbläsarens `localStorage` – dina posts finns kvar även om du stänger webbläsaren.
 - **Hög Tillgänglighet (A11y):** Fullt stöd för skärmläsare och tangentbordsnavigation.
 - **Budgethjul (Cirkeldiagram):** Visuell översikt av dina utgifter och inkomster per kategori.
 - **Responsiv Design:** Optimerad för både mobila enheter och desktop med modern CSS (`clamp`, Flexbox).
 - **Anpassad 404-sida:** En lekfull och informativ felsida om du hamnar på fel URL.
+- **Modern design:** Appen har uppdaterats med nytt färgtema och PDF-exporten matchar nu applikationens utseende.
 
 ## 📸 Skärmdumpar
 
 Lighthouse Desktop
-![Lighthouse Desktop](img/image.png)
+![Lighthouse Desktop](img/lighthouse-desktop-1.png)
 
 Lighthouse Mobile
-![Lighthouse Mobile](img/image-1.png)
+![Lighthouse Mobile](img/lighthouse-desktop-2.png)
 
 404-sida
 
-![404-sida](img/image-3.png)
+![404-sida](img/404-sida.png)
 
 PDF-Rapport
 
-![PDF Export](img/image-2.png)
-![PDF Export](img/image-7.png)
+![PDF Export](img/pdf-1.png)
+![PDF Export](img/pdf-2.png)
 
 ## 🛠 Teknisk Stack
 
