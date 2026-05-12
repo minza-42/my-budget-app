@@ -45,13 +45,13 @@ const themeIcon = document.getElementById("theme-icon") as HTMLImageElement | nu
 const THEME_KEY = "budget-theme";
 
 function setTheme(theme: "light" | "dark") {
-	       if (theme === "dark") {
-		       document.body.classList.add("dark");
-		       if (themeIcon) themeIcon.src = "img/dark-mode.svg";
-	       } else {
-		       document.body.classList.remove("dark");
-		       if (themeIcon) themeIcon.src = "img/light-mode.svg";
-	       }
+		       if (theme === "dark") {
+			       document.body.classList.add("dark");
+			       if (themeIcon) themeIcon.src = "dark-mode.svg";
+		       } else {
+			       document.body.classList.remove("dark");
+			       if (themeIcon) themeIcon.src = "light-mode.svg";
+		       }
 	       localStorage.setItem(THEME_KEY, theme);
 }
 
