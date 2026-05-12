@@ -13,7 +13,7 @@
 :root {
   --bg: #f7f7f5;
   --surface: #ffffff;
-  --surface-2: #f2f2f0;
+  --surface-2: #e0e0dc; /* mörkare för lightmode knapp */
   --border: #e8e8e4;
   --border-focus: #1a1a1a;
 

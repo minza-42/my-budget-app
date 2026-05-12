@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sidan finns inte – Budget App</title>
   <link rel="stylesheet" href="src/style.css" />
+  <link rel="stylesheet" href="src/dark.css" />
   <style>
     body {
       background-color: var(--bg);
@@ -16,6 +17,25 @@
       min-height: 100vh;
       margin: 0;
       padding: 2rem;
+    }
+
+    .theme-toggle {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.5rem 1rem;
+      font-family: var(--font);
+      font-size: 0.9rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .theme-toggle:hover {
+      background: var(--accent-soft);
     }
 
     .container {
@@ -105,6 +125,11 @@
 </head>
 
 <body>
+  <button id="theme-toggle" aria-label="Byt tema"
+    style="position:absolute;right:2rem;top:2rem;padding:0.5em 1em;border-radius:8px;border:none;background:var(--surface-2);color:var(--text);cursor:pointer;z-index:10;">
+    <img id="theme-icon" src="img/light-mode.svg" alt="Byt tema ikon" width="24" height="24"
+      style="vertical-align:middle;" />
+  </button>
   <div class="container">
     <h1>404</h1>
     <p>Hoppsan! Sidan du letar efter verkar ha tagit semester.</p>
@@ -112,6 +137,35 @@
     <a href="index.html" class="home-btn">Gå tillbaka till appen</a>
 
   </div>
+
+  <script>
+    const THEME_KEY = "budget-theme";
+    const themeToggleBtn = document.getElementById("theme-toggle");
+    const themeIcon = document.getElementById("theme-icon");
+    function setTheme(theme) {
+      if (theme === "dark") {
+        document.body.classList.add("dark");
+        if (themeIcon) themeIcon.src = "img/dark-mode.svg";
+      } else {
+        document.body.classList.remove("dark");
+        if (themeIcon) themeIcon.src = "img/light-mode.svg";
+      }
+      localStorage.setItem(THEME_KEY, theme);
+    }
+    function toggleTheme() {
+      const isDark = document.body.classList.contains("dark");
+      setTheme(isDark ? "light" : "dark");
+    }
+    themeToggleBtn.addEventListener("click", toggleTheme);
+    // Init theme on load
+    const savedTheme = localStorage.getItem(THEME_KEY);
+    if (savedTheme) {
+      setTheme(savedTheme);
+    } else {
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      setTheme(prefersDark ? "dark" : "light");
+    }
+  </script>
 </body>
 
 </html>

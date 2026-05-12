@@ -6,8 +6,11 @@ En modern, snabb och tillgänglig webbapplikation för att hantera din vardagsek
 ![Huvudskärmdump-2](img/huvudskärmdump-2.png)
 Utzoomad för att få plats med allt.
 
-## 🚀 Funktioner
+![Huvudskärmdump Darkmode](img/huvudskärmdump-dark-1.png)
+![Huvudskärmdump-2 Darkmode](img/huvudskärmdump-dark-2.png)
+Utzoomad för att få plats med allt.
 
+- **Dark & Light mode:** Du kan nu växla mellan mörkt och ljust läge för en behagligare användarupplevelse.
 - **Transaktionshantering:** Lägg till och radera inkomster, utgifter och sparande.
 - **Realtidsbalans:** Din totala balans uppdateras omedelbart och färgkodas (grön för plus, röd för minus).
 - **Dynamisk PDF-export:** Skapa en snyggt formaterad rapport av din budget med ett klick.
@@ -26,9 +29,15 @@ Lighthouse Desktop
 Lighthouse Mobile
 ![Lighthouse Mobile](img/lighthouse-desktop-2.png)
 
+Mobile layout
+
+![Lighthouse Desktop](img/mobile-layout-1.png)
+![Lighthouse Desktop](img/mobile-layout-2.png)
+
 404-sida
 
 ![404-sida](img/404-sida.png)
+![404-sida](img/404-darksida.png)
 
 PDF-Rapport
 
