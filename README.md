@@ -2,14 +2,6 @@
 
 En modern, snabb och tillgänglig webbapplikation för att hantera din vardagsekonomi. Appen låter dig logga inkomster, utgifter och sparande, samt exportera dina data till en professionell PDF-rapport.
 
-![Huvudskärmdump](img/huvudskärmdump-1.png)
-![Huvudskärmdump-2](img/huvudskärmdump-2.png)
-Utzoomad för att få plats med allt.
-
-![Huvudskärmdump Darkmode](img/huvudskärmdump-dark-1.png)
-![Huvudskärmdump-2 Darkmode](img/huvudskärmdump-dark-2.png)
-Utzoomad för att få plats med allt.
-
 - **Dark & Light mode:** Du kan nu växla mellan mörkt och ljust läge för en behagligare användarupplevelse.
 - **Transaktionshantering:** Lägg till och radera inkomster, utgifter och sparande.
 - **Realtidsbalans:** Din totala balans uppdateras omedelbart och färgkodas (grön för plus, röd för minus).
@@ -20,6 +12,14 @@ Utzoomad för att få plats med allt.
 - **Responsiv Design:** Optimerad för både mobila enheter och desktop med modern CSS (`clamp`, Flexbox).
 - **Anpassad 404-sida:** En lekfull och informativ felsida om du hamnar på fel URL.
 - **Modern design:** Appen har uppdaterats med nytt färgtema och PDF-exporten matchar nu applikationens utseende.
+
+![Huvudskärmdump](img/huvudskärmdump-1.png)
+![Huvudskärmdump-2](img/huvudskärmdump-2.png)
+Utzoomad för att få plats med allt.
+
+![Huvudskärmdump Darkmode](img/huvudskärmdump-dark-1.png)
+![Huvudskärmdump-2 Darkmode](img/huvudskärmdump-dark-2.png)
+Utzoomad för att få plats med allt.
 
 ## 📸 Skärmdumpar
 
